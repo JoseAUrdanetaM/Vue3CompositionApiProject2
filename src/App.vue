@@ -5,9 +5,27 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/" class="nav-link">Home</RouterLink>
     </nav>
   </header>
 
   <RouterView />
 </template>
+
+<style lang="scss" scoped>
+nav {
+  padding: 1rem 2rem;
+  background: #1e40af;
+  border-bottom: 1px solid #60a5fa;
+  .nav-link {
+    color: #fff;
+    padding: 5px 5px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 1rem;
+    &:hover {
+      background: #60a5fa;
+    }
+  }
+}
+</style>
