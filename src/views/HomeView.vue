@@ -16,13 +16,25 @@ const settPostFilter = () => {
   <div class="header">
     <div>
       <h3>{{ postFilter === 'all' ? 'All posts' : ' Saved posts' }}</h3>
+      <span v-show="postStore.loading" class="material-icons">cached</span>
     </div>
     <button @click="settPostFilter">
       {{ postFilter === 'all' ? 'Show saved posts' : ' Show All posts' }}
     </button>
   </div>
 
-  <div v-for="post in postStore.sorted" :key="post.id">
+  <div v-if="postStore.errMsg" class="error">{{ postStore.errMsg }}</div>
+
+  <div v-if="postFilter === 'all'">
+    <div v-for="post in postStore.sorted" :key="post.id">
+      <MyWrapper>
+        <PostItem :post="post" />
+      </MyWrapper>
+    </div>
+  </div>
+
+  <div v-if="postFilter === 'saved'"></div>
+  <div v-for="post in postStore.saved" :key="post.id">
     <MyWrapper>
       <PostItem :post="post" />
     </MyWrapper>
@@ -54,14 +66,22 @@ const settPostFilter = () => {
     }
   }
 }
-.wrapper {
+
+.error {
   margin: 2rem;
-  background: #fff;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
-    rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-  margin-bottom: 2rem;
-  border-radius: 2rem;
-  overflow: hidden;
+  background: #f87171;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
